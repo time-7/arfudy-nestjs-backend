@@ -2,6 +2,7 @@ import { Entity } from '@core/entities/entity';
 import { NutritionFacts } from './value-objects/nutrition-facts.value-object';
 import { Ingredient } from './value-objects/ingredients.value-object';
 import { UniqueEntityId } from '@core/entities/unique-entity-id';
+import { Category } from '@domain/restaurant/enterprise/entities/value-objects/products';
 
 export interface ProductProps {
   name: string;
@@ -13,6 +14,7 @@ export interface ProductProps {
   price: number;
   unityModelId?: string;
   isVisible?: boolean;
+  category?: Category;
 }
 
 export class Product extends Entity<ProductProps> {
@@ -88,6 +90,14 @@ export class Product extends Entity<ProductProps> {
     this.props.isVisible = !this.isVisible;
   }
 
+  get category(): Category {
+    return this.props.category;
+  }
+
+  set category(category: Category) {
+    this.props.category = category;
+  }
+
   static create(
     {
       name,
@@ -99,6 +109,7 @@ export class Product extends Entity<ProductProps> {
       price,
       unityModelId,
       isVisible,
+      category,
     }: ProductProps,
     id?: UniqueEntityId,
   ) {
@@ -119,6 +130,7 @@ export class Product extends Entity<ProductProps> {
         price,
         unityModelId,
         isVisible: isVisible ?? true,
+        category: category ?? Category.FOOD,
       },
       id,
     );

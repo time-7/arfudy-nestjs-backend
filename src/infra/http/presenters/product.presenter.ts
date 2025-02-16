@@ -6,6 +6,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Optional } from '@prisma/client/runtime/library';
 import { NutritionFactsPresenter } from './nutrition-facts.presenter';
 import { IngredientPresenter } from './ingredient.presenter';
+import { Category } from '@domain/restaurant/enterprise/entities/value-objects/products';
 
 export class ProductPresenter {
   @ApiProperty()
@@ -38,6 +39,9 @@ export class ProductPresenter {
   @ApiProperty()
   isVisible: boolean;
 
+  @ApiProperty()
+  category: Category;
+
   private constructor(
     {
       name,
@@ -49,6 +53,7 @@ export class ProductPresenter {
       imageUrl,
       unityModelId,
       isVisible,
+      category,
     }: Optional<ProductProps>,
     id: string,
   ) {
@@ -62,6 +67,7 @@ export class ProductPresenter {
     this.imageUrl = imageUrl;
     this.unityModelId = unityModelId;
     this.isVisible = isVisible ?? true;
+    this.category = category;
   }
 
   static toHttp(product: Product) {
@@ -76,6 +82,7 @@ export class ProductPresenter {
         imageUrl: product.imageUrl,
         unityModelId: product.unityModelId,
         isVisible: product.isVisible,
+        category: product.category as Category,
       },
       product.id.toString(),
     );

@@ -1,12 +1,14 @@
 import { Product as PrismaProduct, Prisma } from '@prisma/client';
 import { Product } from '@domain/menu/enterprise/entities/products';
 import { UniqueEntityId } from '@core/entities/unique-entity-id';
+import { Category } from '@domain/restaurant/enterprise/entities/value-objects/products';
 
 export class PrismaProductsMapper {
   static toDomain(raw: PrismaProduct) {
     return Product.create(
       {
         ...raw,
+        category: raw.category as Category,
       },
       UniqueEntityId.createFromRawId(raw.id),
     );
@@ -22,6 +24,7 @@ export class PrismaProductsMapper {
       ingredients: product.ingredients,
       nutritionFacts: product.nutritionFacts,
       id: product.id.toString(),
+      category: product.category,
     };
   }
 
@@ -36,6 +39,7 @@ export class PrismaProductsMapper {
       ingredients: product.ingredients,
       nutritionFacts: product.nutritionFacts,
       isVisible: product.isVisible,
+      category: product.category,
     };
   }
 }

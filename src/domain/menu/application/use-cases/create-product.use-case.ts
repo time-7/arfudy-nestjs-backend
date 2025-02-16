@@ -22,6 +22,7 @@ export class CreateProductUseCase {
     imageUrl,
     price,
     unityModelId,
+    category,
   }: CreateProductUseCaseRequest): Promise<CreateProductUseCaseResponse> {
     let product: Product = Product.create({
       name,
@@ -32,6 +33,7 @@ export class CreateProductUseCase {
       imageUrl,
       price,
       unityModelId,
+      category,
     });
 
     product = await this.productsRepository.create(product);
