@@ -25,6 +25,7 @@ export class EditProductUseCase {
     nutritionFacts,
     price,
     unityModelId,
+    category,
   }: EditProductUseCaseRequest): Promise<EditProductUseCaseResponse> {
     const product = await this.productsRepository.findById(id);
     if (!product) throw new ResourceNotFoundError();
@@ -39,6 +40,7 @@ export class EditProductUseCase {
       : NutritionFacts.create({ ...nutritionFacts });
     product.price = price;
     product.unityModelId = unityModelId;
+    product.category = category;
 
     await this.productsRepository.save(product);
 

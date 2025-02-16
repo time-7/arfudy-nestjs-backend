@@ -1,7 +1,9 @@
+import { Category } from '@domain/restaurant/enterprise/entities/value-objects/products';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsBoolean,
+  IsEnum,
   IsInt,
   IsNumber,
   IsOptional,
@@ -79,4 +81,8 @@ export class CreateProductRequestDto {
   @IsOptional()
   @ApiPropertyOptional()
   unityModelId: string;
+
+  @IsEnum(Category)
+  @ApiProperty({ enum: Category })
+  category: Category;
 }

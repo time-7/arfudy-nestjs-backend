@@ -21,6 +21,7 @@ model Product {
   isVisible      Boolean        @default(true) @map("is_visible")
   ingredients    ingredient[]
   nutritionFacts nutritionFacts @map("nutrition_facts")
+  category       category       @default(FOOD)
 }
 
 type nutritionFacts {
